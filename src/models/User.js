@@ -78,5 +78,5 @@ const UserSchema = new Schema({
 });
 
 // Export the User model based on the UserSchema
-export const User = mongoose.model("User",UserSchema)
+export const User = mongoose.models.User || mongoose.model("User",UserSchema)
 //'User' is a collection name
