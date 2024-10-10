@@ -1,4 +1,4 @@
-import Signin from "@/components/Auth/Signin";
+import Signin from "@/components/Auth/signin";
 const Login = () => {
   return (
     <div className="bg-primary h-screen w-screen flex justify-center items-center">
