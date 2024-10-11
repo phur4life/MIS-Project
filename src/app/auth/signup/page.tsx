@@ -1,4 +1,4 @@
-import Signup from "@/components/Auth/signup/index";
+import Signup from "@/components/Auth/signup";
 const signup = () => {
   return (
     <div className="bg-primary h-screen w-screen flex justify-center items-center">

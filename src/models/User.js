@@ -42,26 +42,24 @@ const RequestSchema = new Schema(
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: true, 
-    required:true// Name is required
+    required: true,
+    required: true, // Name is required
   },
-  email:{
-    required:true,
+  email: {
+    required: true,
     type: String,
-    required:true
+    required: true,
   },
-  password:{
-    required:true,
-    type:String,
-    required:true
-
+  password: {
+    required: true,
+    type: String,
+    required: true,
   },
   department: {
     type: String, // Optional department field
   },
   studentNumber: {
     type: String,
-    unique: true, // Student number must be unique
   },
   profileImage: {
     type: String, // Optional field for profile image URL
@@ -72,24 +70,23 @@ const UserSchema = new Schema({
   role: {
     type: String,
     enum: ["Admin", "Member", "User"], // Role can only be one of these values
-   // required: true, // Role is required
+    // required: true, // Role is required
   },
   status: {
     type: String,
     enum: ["Active", "Inactive"], // Status can only be Active or Inactive
-   // required: true, // Status is required
+    // required: true, // Status is required
   },
   teamId: {
     // Reference to Team model.
     type: mongoose.Schema.Types.ObjectId,
     ref: "Team",
-   // required: true,
+    // required: true,
   },
-  
 
   requests: [RequestSchema], // Embed requests as an array of RequestSchemas
 });
 
 // Export the User model based on the UserSchema
-export const User = mongoose.models.User ?? mongoose.model("User",UserSchema)
+export const User = mongoose.models.User ?? mongoose.model("User", UserSchema);
 //'User' is a collection name

@@ -17,6 +17,7 @@ export default function SignupWithPassword() {
       const email = formData.get("email");
       const password = formData.get("password");
 
+    
       const response = await fetch("/api/register", {
         method: "POST",
         headers: {
@@ -54,8 +55,6 @@ export default function SignupWithPassword() {
             id="name"
             className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
           />
-
-          
         </div>
       </div>
       <div className="mb-4">
@@ -91,8 +90,6 @@ export default function SignupWithPassword() {
           </span>
         </div>
       </div>
-
-      
 
       <div className="mb-5">
         <label
