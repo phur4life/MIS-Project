@@ -1,0 +1,42 @@
+import Link from "next/link";
+import { Items } from "./Items"; // Make sure Items is capitalized as it's a React component
+
+const Sidebar = () => {
+  const menuItems = [
+    { name: "Dashboard", link: "/", icon: "🏠" },
+    { name: "Inventory", link: "/inventory", icon: "📦" },
+    { name: "Member", link: "/member", icon: "👤" },
+    { name: "Activity", link: "/activity", icon: "📊" },
+    { name: "Services", link: "/services", icon: "🛠" },
+  ];
+
+  const bottomMenuItems = [
+    { name: "Setting", link: "/settings", icon: "⚙️" },
+    { name: "Logout", link: "/logout", icon: "🚪" },
+  ];
+
+  return (
+    <div className="h-full w-53  text-secondary fixed flex flex-col justify-between text-sm ">
+      <ul className="mt-5">
+        {menuItems.map((item) => (
+          <li key={item.name} className="p-4 hover:bg-primary hover:rounded-lg ">
+            <Link href={item.link}>
+              <Items text={item.name} icon={item.icon} />
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <ul className="mt-5">
+        {bottomMenuItems.map((item) => (
+          <li key={item.name} className="p-4 hover:bg-primary hover:rounded-lg">
+            <Link href={item.link}>
+              <Items text={item.name} icon={item.icon} />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Sidebar;
