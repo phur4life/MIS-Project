@@ -1,12 +1,16 @@
-import Signup from "@/app/auth/signup/page"
-import Login from "./auth/signin/page";
+"use client";
 
-// import LoginForm from "@/components/LoginForm"
+import Header from "@/components/Header";
+
 export default function Home() {
-  return (
-    <div>
-      {/* <Login/> */}
-      <Signup/>
-    </div>
-  );
+	return (
+		<div>
+			<Header
+				sidebarOpen={undefined}
+				setSidebarOpen={function (arg0: boolean): void {
+					throw new Error("Function not implemented.");
+				}}
+			/>
+		</div>
+	);
 }
