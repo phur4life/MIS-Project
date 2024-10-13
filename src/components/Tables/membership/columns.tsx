@@ -7,10 +7,9 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { formatDate } from "@/lib/utils";
 
 export type Membership = {
 	name: string;
@@ -22,15 +21,6 @@ export type Membership = {
 	image: string;
 	department: string;
 };
-
-function formatDate(date: Date): string {
-	const options: Intl.DateTimeFormatOptions = {
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-	};
-	return date.toLocaleDateString("en-US", options);
-}
 
 export const columns: ColumnDef<Membership>[] = [
 	{
