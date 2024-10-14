@@ -7,7 +7,7 @@ const Header = (props: {
 	setSidebarOpen: (arg0: boolean) => void;
 }) => {
 	return (
-		<header className="sticky top-0 z-999 flex w-full border-b border-stroke bg-white dark:border-stroke-dark dark:bg-gray-dark">
+		<header className="fixed top-0 z-50 flex w-full border-b border-stroke bg-white dark:border-stroke-dark dark:bg-gray-dark">
 			<div className="flex flex-grow items-center justify-between px-4 py-5 shadow-2 md:px-5 2xl:px-10">
 				<div className="hidden xl:block">
 					<div>
