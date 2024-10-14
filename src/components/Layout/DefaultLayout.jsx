@@ -8,7 +8,7 @@ const DefaultLayout = ({ children }) => {
       {/* Header at the top */}
       <Header/>
       {/* Content below the header */}
-      <div className="flex flex-grow pt-5 mt-14">
+      <div className="flex flex-grow ">
         {/* Sidebar with a fixed width */}
         <div className="w-40">
           <Sidebar />

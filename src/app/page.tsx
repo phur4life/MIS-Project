@@ -1,9 +1,9 @@
 "use client";
-import Project from '../components/Dashboard/Project'
+import Dashboard from '@/app/dashboard/page'
 export default function Home() {
   return (
     <div>
-      <Project/>
+      <Dashboard/>
     </div>
   );
 }

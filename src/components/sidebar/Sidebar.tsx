@@ -7,16 +7,16 @@ const Sidebar = () => {
     { name: "Inventory", link: "/inventory", icon: "📦" },
     { name: "Member", link: "/member", icon: "👤" },
     { name: "Activity", link: "/activity", icon: "📊" },
-    { name: "Services", link: "/services", icon: "🛠" },
+    { name: "Services", link: "/service", icon: "🛠" },
   ];
 
   const bottomMenuItems = [
-    { name: "Setting", link: "/settings", icon: "⚙️" },
+    { name: "Setting", link: "/setting", icon: "⚙️" },
     { name: "Logout", link: "/logout", icon: "🚪" },
   ];
 
   return (
-    <div className="h-full w-53  text-secondary fixed flex flex-col justify-between text-sm ">
+    <div className="h-auto w-53  text-secondary fixed flex flex-col justify-between text-sm ">
       <ul className="mt-5">
         {menuItems.map((item) => (
           <li key={item.name} className="p-4 hover:bg-primary hover:rounded-lg ">
