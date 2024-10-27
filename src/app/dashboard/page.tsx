@@ -1,3 +1,4 @@
+"use client";
 import DefaultLayout from "@/components/Layout/DefaultLayout";
 import ChartOne from "../../components/Charts/ChartOne";
 import ChartTwo from "../../components/Charts/ChartTwo";
@@ -12,13 +13,21 @@ const Dashboard = () => {
           <DataStatsOne />
         </div>
         <div>
-          <div className="flex justify-center w-auto">
-            <ChartOne/>
-            <ChartTwo/>
+          <div className="flex flex-wrap gap-4 justify-between">
+            <div className="w-full xl:w-[49%]">
+              <ChartOne />
+            </div>
+            <div className="w-full xl:w-[48%]">
+              <ChartTwo />
+            </div>
           </div>
-          <div className="flex justify-center">
-            <ChartThree />
-            <ChartFour />
+          <div className="flex flex-wrap justify-between">
+            <div className="w-full xl:w-[48%]">
+              <ChartThree />
+            </div>
+            <div className="w-full xl:w-[48%] flex flex-col justify-center">
+              <ChartFour />
+            </div>
           </div>
         </div>
       </div>

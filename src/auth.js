@@ -41,7 +41,6 @@ export const {
               console.log('Tashi is wrong')
             }
             if (isMatch) {
-              console.log("returning user")
               return user;
             } else {
               throw new Error("Check your password");

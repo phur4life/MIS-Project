@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Items } from "./Items"; // Make sure Items is capitalized as it's a React component
-
+import { doLogout } from "@/app/actions";
 const Sidebar = () => {
   const menuItems = [
     { name: "Dashboard", link: "/", icon: "🏠" },
@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   const bottomMenuItems = [
     { name: "Setting", link: "/setting", icon: "⚙️" },
-    { name: "Logout", link: "/logout", icon: "🚪" },
+    { name: "Logout", link: "/", icon: "🚪" },
   ];
 
   return (
@@ -20,9 +20,14 @@ const Sidebar = () => {
       <ul className="mt-5">
         {menuItems.map((item) => (
           <li key={item.name} className="p-4 hover:bg-primary hover:rounded-lg ">
+            {item.name ==="Logout"?(
+              <button onClick={()=>doLogout}>
+                <Items text={item.name} icon={item.icon}/>
+              </button>
+            ):
             <Link href={item.link}>
               <Items text={item.name} icon={item.icon} />
-            </Link>
+            </Link>}
           </li>
         ))}
       </ul>

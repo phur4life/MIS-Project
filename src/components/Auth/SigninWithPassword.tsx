@@ -20,7 +20,7 @@ export default function SigninWithPassword() {
         setError(response.error.message);
         console.error(response.error+"Couldnt sigin");
       } else {
-        router.push("/home");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);

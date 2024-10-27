@@ -1,7 +1,13 @@
-import React from 'react'
+import DefaultLayout from "@/components/Layout/DefaultLayout";
+import Cart from "@/components/Cart/Cart";
+import serviceData from '@/components/Cart/serviceData'
 const Service = () => {
   return (
-    <div>Service</div>
+    <DefaultLayout>
+      <div>
+        <Cart productData={serviceData}/>
+      </div>
+    </DefaultLayout>
   )
 }
 export default Service;
