@@ -3,15 +3,15 @@ import { Items } from "./Items"; // Make sure Items is capitalized as it's a Rea
 import { doLogout } from "@/app/actions";
 const Sidebar = () => {
   const menuItems = [
-    { name: "Dashboard", link: "/", icon: "🏠" },
-    { name: "Inventory", link: "/inventory", icon: "📦" },
-    { name: "Member", link: "/member", icon: "👤" },
-    { name: "Activity", link: "/activity", icon: "📊" },
-    { name: "Services", link: "/service", icon: "🛠" },
+    { name: "Dashboard", link: "/admin", icon: "🏠" },
+    { name: "Inventory", link: "/admin/inventory", icon: "📦" },
+    { name: "Member", link: "/admin/members", icon: "👤" },
+    { name: "Activity", link: "/admin/activity", icon: "📊" },
+    { name: "Services", link: "/admin/service", icon: "🛠" },
   ];
 
   const bottomMenuItems = [
-    { name: "Setting", link: "/setting", icon: "⚙️" },
+    { name: "Setting", link: "/admin/setting", icon: "⚙️" },
     { name: "Logout", link: "/", icon: "🚪" },
   ];
 

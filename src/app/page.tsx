@@ -1,5 +1,5 @@
 
-import Dashboard from '@/app/dashboard/page'
+// import Dashboard from '@/app/admin/dashboard/page'
 import Signup from './auth/Signup/page';
 export default function Home() {
   return (
