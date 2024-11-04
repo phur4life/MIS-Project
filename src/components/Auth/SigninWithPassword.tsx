@@ -11,6 +11,7 @@ export default function SigninWithPassword() {
   const [error, setError] = useState("");
   const router = useRouter();
 
+
   async function handleFormSubmit(event) {
     event.preventDefault();
     try {
@@ -18,7 +19,7 @@ export default function SigninWithPassword() {
       const response = await doCredentialLogin(formData);
       if (!!response.error) {
         setError(response.error.message);
-        console.error(response.error+"Couldnt sigin");
+        console.error(response.error + "Couldnt sigin");
       } else {
         router.push("/admin/dashboard");
       }

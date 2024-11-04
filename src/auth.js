@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "./models/User";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 export const {
   handlers: { GET, POST },
@@ -31,17 +31,25 @@ export const {
         try {
           const user = await User.findOne({
             email: credentials?.email,
-          });  
+          });
           if (user) {
             const isMatch = await bcrypt.compare(
               credentials.password,
               user.password
             );
-            if(!isMatch){
-              console.log('Tashi is wrong')
+            if (!isMatch) {
+              console.log("Tashi is wrong");
             }
             if (isMatch) {
-              return user;
+              // return user;
+              const userObject = {
+                id: user._id.toString(),
+                email: user.email,
+                role: user.role,
+                // Add any other properties from the user object you want in the session
+              };
+              console.log("User Object",JSON.stringify(userObject))
+              return userObject;
             } else {
               throw new Error("Check your password");
             }
@@ -54,4 +62,26 @@ export const {
       },
     }),
   ],
+  callbacks:{
+    async jwt({ token, user }) {
+      // Store user data in the token when they log in
+      if (user) {
+        token.id = user.id; // Store user id in token
+        token.email = user.email; // Store user email in token
+        token.role = user.role; // Store user role in token
+        // Add any other properties from the user object you want in the token
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Populate session object with user data from token
+      if (token) {
+        session.user.id = token.id; // Assign user id to session
+        session.user.email = token.email; // Assign user email to session
+        session.user.role = token.role; // Assign user role to session
+        // Assign any other properties from the token you want in the session
+      }
+      return session;
+    },
+  }
 });

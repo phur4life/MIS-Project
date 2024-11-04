@@ -1,8 +1,8 @@
 "use server";
 import { signIn, signOut } from "@/auth";
 export async function doSocialLogin(formData) {
-  const action = formData.get("action", { redirectTo: "/dashboard" });
-  await signIn(action, { redirectTo: "/dashboard" });
+  const action = formData.get("action", { redirectTo: "/admin/dashboard" });
+  await signIn(action, { redirectTo: "/admin/dashboard" });
 }
 export async function doLogout() {
   await signOut({ redirectTo: "/" });

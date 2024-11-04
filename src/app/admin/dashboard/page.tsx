@@ -5,7 +5,18 @@ import ChartTwo from "../../../components/Charts/ChartTwo";
 import DataStatsOne from "../../../components/DataStats/DataStatsOne";
 import ChartThree from "../../../components/Charts/ChartThree";
 import ChartFour from "../../../components/Charts/ChartFour";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 const Dashboard = () => {
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    // Print session data to the console when session changes
+    if (session) {
+      console.log("Session Data:", session);
+    } else if (status === "unauthenticated") {
+      console.log("No active session found.");
+    }
+  }, [session, status]);
   return (
     <DefaultLayout>
       <div className="flex flex-col gap-6">
