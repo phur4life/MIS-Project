@@ -1,12 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function SignupWithPassword() {
-  const [data, setData] = useState({
-    remember: false,
-  });
   const router = useRouter();
 
   async function handleSubmit(event) {
