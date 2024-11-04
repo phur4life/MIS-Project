@@ -42,8 +42,9 @@ const RequestSchema = new Schema(
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    required: true, // Name is required
+    required: function () {
+      return !this.authProvider;
+    },
   },
   email: {
     required: true,
@@ -53,7 +54,9 @@ const UserSchema = new Schema({
   password: {
     required: true,
     type: String,
-    required: true,
+    required: function () {
+      return !this.authProvider;
+    },
   },
   department: {
     type: String, // Optional department field
@@ -69,10 +72,11 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["Admin", "Member", "User"],
-    default: "User" // Role can only be one of these values
+    enum: ["admin", "member", "user"],
+    default: "user", // Role can only be one of these values
     // required: true, // Role is required
   },
+  authProvider: { type: String, default: "local" },
   status: {
     type: String,
     enum: ["Active", "Inactive"], // Status can only be Active or Inactive
