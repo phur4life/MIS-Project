@@ -11,13 +11,32 @@ export async function GET(req, { params }) {
 
 export async function PUT(req, { params }) {
 	const { id } = params;
-	const {
-		newName: serviceName,
-		newDescription: description,
-		newImage: image,
-	} = await req.json();
+
+	// Destructure the new data from the request body
+	const { serviceName, description, image } = await req.json();
 
 	await connect();
-	await Service.findByIdAndUpdate(id, { serviceName, description, image });
-	return NextResponse.json({ message: "Service Updated" }, { status: 200 });
+
+	// Find and update the service by ID
+	const updatedService = await Service.findByIdAndUpdate(
+		id,
+		{ serviceName, description, image },
+		{ new: true } // This option returns the updated document
+	);
+
+	if (!updatedService) {
+		return NextResponse.json({ message: "Service not found" }, { status: 404 });
+	}
+
+	return NextResponse.json(
+		{ message: "Service Updated", updatedService },
+		{ status: 200 }
+	);
+}
+
+export async function DELETE(req, { params }) {
+	const { id } = params;
+	await connect();
+	await Service.findByIdAndDelete(id);
+	return NextResponse.json({ message: "Service Deleted" }, { status: 200 });
 }
