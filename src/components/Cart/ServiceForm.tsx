@@ -3,12 +3,10 @@ import { Button } from "../ui/button";
 import { FaEdit } from "react-icons/fa"; // Import the edit icon from react-icons
 
 interface Item {
-	id: string;
-	itemName: string;
-	quantity: number;
+	_id: string;
+	serviceName: string;
 	description: string;
 	image: string;
-	status: string;
 }
 
 interface ViewProps {
@@ -18,7 +16,7 @@ interface ViewProps {
 	onSave: (item: Item) => void;
 }
 
-const ViewItemDetails: React.FC<ViewProps> = ({
+const ServiceForm: React.FC<ViewProps> = ({
 	isOpen,
 	onClose,
 	item,
@@ -58,15 +56,15 @@ const ViewItemDetails: React.FC<ViewProps> = ({
 				<div className="flex flex-row gap-2">
 					<img
 						src={editedItem.image}
-						alt={`Image of ${editedItem.itemName}`}
+						alt={`Image of ${editedItem.serviceName}`}
 						className="w-1/2 h-64 object-cover rounded-md mr-4"
 					/>
 					<div className="flex-1">
 						{/* Item Name */}
 						<div className="flex items-center mb-4">
 							<input
-								name="itemName"
-								value={editedItem.itemName}
+								name="serviceName"
+								value={editedItem.serviceName}
 								onChange={handleInputChange}
 								readOnly={!isEditing}
 								className={`w-full text-3xl p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
@@ -86,59 +84,6 @@ const ViewItemDetails: React.FC<ViewProps> = ({
 									isEditing ? "bg-gray-100 h-32" : "bg-white"
 								}`}
 							/>
-						</div>
-
-						{/* Quantity */}
-						<div className="flex items-center mb-4">
-							{/* Decrease Button */}
-							{isEditing && (
-								<button
-									onClick={() =>
-										setEditedItem((prev) => ({
-											...prev,
-											quantity: Math.max(prev.quantity - 1, 0), // Ensure quantity doesn't go below 0
-										}))
-									}
-									className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition duration-200"
-								>
-									-
-								</button>
-							)}
-
-							{/* Quantity Input */}
-							<input
-								name="quantity"
-								//type="number"
-								value={editedItem.quantity}
-								onChange={handleInputChange}
-								readOnly={!isEditing}
-								className={`w-full text-4xl p-2 mx-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-									isEditing ? "bg-gray-100" : "bg-white"
-								}`}
-							/>
-
-							{/* Increase Button */}
-							{isEditing && (
-								<button
-									onClick={() =>
-										setEditedItem((prev) => ({
-											...prev,
-											quantity: prev.quantity + 1,
-										}))
-									}
-									className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition duration-200"
-								>
-									+
-								</button>
-							)}
-						</div>
-
-						{/* Status */}
-						<div className="flex items-center mb-4">
-							<span>
-								{editedItem.itemName} is currently{" "}
-								{editedItem.quantity > 0 ? "Available" : "Out of Stock"}
-							</span>
 						</div>
 
 						{/* Edit/Save Button */}
@@ -174,4 +119,4 @@ const ViewItemDetails: React.FC<ViewProps> = ({
 	);
 };
 
-export default ViewItemDetails;
+export default ServiceForm;
