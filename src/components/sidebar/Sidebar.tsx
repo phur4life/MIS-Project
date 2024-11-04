@@ -3,7 +3,7 @@ import { Items } from "./Items"; // Make sure Items is capitalized as it's a Rea
 import { doLogout } from "@/app/actions";
 const Sidebar = () => {
   const menuItems = [
-    { name: "Dashboard", link: "/admin", icon: "🏠" },
+    { name: "Dashboard", link: "/admin/dashboard", icon: "🏠" },
     { name: "Inventory", link: "/admin/inventory", icon: "📦" },
     { name: "Member", link: "/admin/members", icon: "👤" },
     { name: "Activity", link: "/admin/activity", icon: "📊" },

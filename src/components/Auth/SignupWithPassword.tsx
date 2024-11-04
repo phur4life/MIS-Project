@@ -26,10 +26,10 @@ export default function SignupWithPassword() {
           password,
         }),
       });
-
+      
       //if true then direct to login page
-      if (response.status === 201) {
-        router.push("/auth/signin");
+      if (response.ok) {
+        router.push("/auth/Signin");
       }
     } catch (e) {
       console.error(e);
