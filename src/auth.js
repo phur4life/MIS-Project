@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "./models/User";
 import bcrypt from "bcryptjs";
+import { findOrCreateUser } from "@/lib/findOrCreateUser";
 
 export const {
   handlers: { GET, POST },
@@ -48,7 +49,7 @@ export const {
                 role: user.role,
                 // Add any other properties from the user object you want in the session
               };
-              console.log("User Object",JSON.stringify(userObject))
+              console.log("User Object", JSON.stringify(userObject));
               return userObject;
             } else {
               throw new Error("Check your password");
@@ -62,7 +63,7 @@ export const {
       },
     }),
   ],
-  callbacks:{
+  callbacks: {
     async jwt({ token, user }) {
       // Store user data in the token when they log in
       if (user) {
@@ -70,6 +71,8 @@ export const {
         token.email = user.email; // Store user email in token
         token.role = user.role; // Store user role in token
         // Add any other properties from the user object you want in the token
+        const dbUser = await findOrCreateUser(user.email, { name: user.name });
+        token.role = dbUser.role;
       }
       return token;
     },
@@ -83,5 +86,5 @@ export const {
       }
       return session;
     },
-  }
+  },
 });
