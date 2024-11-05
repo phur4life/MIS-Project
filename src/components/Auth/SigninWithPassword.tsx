@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Ensure this is imported correctly
+import { getSession } from "next-auth/react";
+import { doCredentialLogin } from "@/app/actions"; // Ensure this path is correct
 import Link from "next/link";
-import { doCredentialLogin } from "@/app/actions";
-import { useRouter } from "next/navigation";
 
 export default function SigninWithPassword() {
   const [data, setData] = useState({
@@ -11,24 +12,68 @@ export default function SigninWithPassword() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-
   async function handleFormSubmit(event) {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
       const response = await doCredentialLogin(formData);
-      if (!!response.error) {
+
+      // Check if there was an error in the response
+      if (response?.error) {
         setError(response.error.message);
-        console.error(response.error + "Couldnt sigin");
+        console.error(response.error + " Couldn't sign in");
       } else {
-        router.push("/admin/dashboard");
+        // Wait for the session to update on the client side
+        const session = await getSession();
+
+        // Check if the session has a user role
+        if (session?.user?.role) {
+          const redirectTo = getRedirectUrl(session.user.role); // Get redirect URL based on role
+          router.push(redirectTo); // Redirect the user based on their role
+        } else {
+          // Handle case where user role is not defined
+          setError("User role not found.");
+        }
       }
     } catch (error) {
-      console.log(error);
+      console.error("An error occurred during login:", error);
       setError("Check your credentials");
     }
   }
 
+  function getRedirectUrl(role) {
+    switch (role) {
+      case "admin":
+        return "/admin/dashboard";
+      case "member":
+        return "/member/profile";
+      case "user":
+        return "/user/profile";
+      default:
+        return "/";
+    }
+  }
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.target);
+
+  //   try {
+  //     const response = await doCredentialLogin(formData); // Call server action
+
+  //     if (response.success) {
+  //       // Wait for the session to update on the client side
+  //       const session = await getSession();
+
+  //       if (session?.user?.role) {
+  //         const redirectTo = getRedirectUrl(session.user.role); // Call the same getRedirectUrl function
+  //         router.push(redirectTo); // Redirect the user based on their role
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during login:", error);
+  //     // Handle error feedback here (e.g., show a message to the user)
+  //   }
+  // };
   return (
     <>
       <div className="text-xl text-red-500">{error}</div>

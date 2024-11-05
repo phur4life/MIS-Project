@@ -64,9 +64,7 @@ const UserSchema = new Schema({
   studentNumber: {
     type: String,
   },
-  profileImage: {
-    type: String, // Optional field for profile image URL
-  },
+  profileImage: { type: String},
   currentYear: {
     type: Number, // Current year of study
   },
