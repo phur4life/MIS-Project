@@ -57,6 +57,9 @@ const UserSchema = new Schema({
     required: function () {
       return !this.authProvider;
     },
+    phoneNumber:{
+      type:String
+    }
   },
   department: {
     type: String, // Optional department field
@@ -66,7 +69,7 @@ const UserSchema = new Schema({
   },
   profileImage: { type: String},
   currentYear: {
-    type: Number, // Current year of study
+    type: String, // Current year of study
   },
   role: {
     type: String,

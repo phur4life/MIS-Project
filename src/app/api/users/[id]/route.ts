@@ -41,6 +41,8 @@ export async function PUT(
 
   try {
     const body = await request.json();
+    console.log("user id",params.id)
+    console.log("user body",body)
 
     const updatedUser = await User.findByIdAndUpdate(params.id, body, {
       new: true,
