@@ -53,7 +53,7 @@ const MaintenanceClubComponent = () => {
             borderRadius: '4px', 
             marginRight: 2 
           }}
-          image="/image/service/electrical.jpg" // Replace with the actual image path
+          image = "/image/service/electrical.jpg" // Replace with the actual image path
           alt="Maintenance Club Group"
         />
       </Card>

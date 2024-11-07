@@ -4,7 +4,7 @@ import ChartOne from "../../components/Charts/ChartOne";
 import ChartTwo from "../../components/Charts/ChartTwo";
 import DataStatsOne from "../../components/DataStats/DataStatsOne";
 import ChartThree from "../../components/Charts/ChartThree";
-//import ChartFour from "../../components/Charts/ChartFour";
+import ChartFour from "../../components/Charts/ChartFour";
 const Dashboard = () => {
   return (
     <DefaultLayout>
@@ -19,6 +19,7 @@ const Dashboard = () => {
             </div>
             <div className="w-full xl:w-[48%]">
               <ChartTwo />
+              <ChartFour/>
             </div>
           </div>
           <div className="flex flex-wrap justify-between">
