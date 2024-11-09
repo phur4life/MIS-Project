@@ -9,7 +9,7 @@ const userData = {
 	about: "Im interested in sleeping but it seldom comes. Same with love",
 	interest: ["Light Fixing", "Fan Fixing", "Exercise"],
 	experience: 3,
-	role: "user",
+	role: "Member",
 };
 
 export default function ProfessionalDetailsCard() {

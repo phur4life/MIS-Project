@@ -5,9 +5,10 @@ import React from "react";
 
 const page = () => {
 	return (
-		<div className="bg-background m-0">
+		<div className="bg-background m-0 min-h-screen relative">
 			<BackgroundPicture />
-			<div className="flex flex-col w-4/5 md:flex-row gap-6 p-6 bg-background min-h-screen">
+			{/* Update the styles of this div to be absolute */}
+			<div className="absolute top-24 left-1/2 transform -translate-x-1/2 flex flex-col w-4/5 md:flex-row gap-6 p-6">
 				<ProfileCard />
 				<ProfessionalDetailsCard />
 			</div>
