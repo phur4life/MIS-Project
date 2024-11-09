@@ -12,12 +12,15 @@ import {
 import { formatDate } from "@/lib/utils";
 
 export type Membership = {
+	id: string;
 	name: string;
 	email: string;
 	phone: string;
+	role: string;
+	status: string;
 	student_no: string;
 	date_of_joining: Date;
-	joined: "Joined" | "Pending";
+	membership_request_status: "active" | "pending" | "not_accepted";
 	image: string;
 	department: string;
 };
@@ -86,7 +89,13 @@ export const columns: ColumnDef<Membership>[] = [
 	{
 		accessorKey: "date_of_joining",
 		header: "Joined",
-		cell: ({ row }) => <span>{formatDate(row.original.date_of_joining)}</span>,
+		cell: ({ row }) => (
+			<span>
+				{row.original.date_of_joining
+					? formatDate(row.original.date_of_joining)
+					: "N/A"}
+			</span>
+		),
 	},
 	{
 		accessorKey: "joined",
@@ -101,42 +110,59 @@ export const columns: ColumnDef<Membership>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => (
+		cell: ({ row, table }) => (
 			<div className="flex items-center gap-2">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="outline">
-							{row.original.joined === "Joined" ? "Member" : "Pending"}
+							{row.original.membership_request_status === "active"
+								? "Member"
+								: row.original.membership_request_status === "pending"
+								? "Pending"
+								: row.original.membership_request_status === "not_accepted"
+								? "Not Accepted"
+								: "Unknown Status"}
 						</Button>
 					</DropdownMenuTrigger>
+
 					<DropdownMenuContent align="end" style={{ backgroundColor: "white" }}>
-						{row.original.joined === "Joined" ? (
+						{row.original.membership_request_status === "active" ? (
 							<>
-								<DropdownMenuItem
-									onClick={() => alert(`Promote ${row.original.name}`)}
+								{/* <DropdownMenuItem
+									onClick={() =>
+										table.options.meta?.onStatusChange(row.original, "Joined")
+									}
 								>
 									Promote
-								</DropdownMenuItem>
+								</DropdownMenuItem> */}
 								<DropdownMenuItem
-									onClick={() => alert(`Remove ${row.original.name}`)}
+									onClick={() =>
+										table.options.meta?.onStatusChange(row.original, "Remove")
+									}
 								>
 									Remove
 								</DropdownMenuItem>
 							</>
-						) : (
+						) : row.original.membership_request_status === "pending" ? (
 							<>
 								<DropdownMenuItem
-									onClick={() => alert(`Accept ${row.original.name}`)}
+									onClick={() =>
+										table.options.meta?.onStatusChange(row.original, "Joined")
+									}
 								>
 									Accept
 								</DropdownMenuItem>
 								<DropdownMenuItem
-									onClick={() => alert(`Remove ${row.original.name}`)}
+									onClick={() =>
+										table.options.meta?.onStatusChange(row.original, "Remove")
+									}
 								>
 									Remove
 								</DropdownMenuItem>
 							</>
-						)}
+						) : row.original.membership_request_status === "not_accepted" ? (
+							<DropdownMenuItem disabled>No actions available</DropdownMenuItem>
+						) : null}
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</div>

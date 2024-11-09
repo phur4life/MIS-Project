@@ -22,10 +22,17 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import AddMemberModal from "./memberDialog";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
+	onRemoveMember?: (id: string) => void;
+	onStatusChange?: (
+		row: TData,
+		status: "Joined" | "Pending" | "Remove"
+	) => void;
+	onAddMember: (addMember: any) => void;
 }
 
 interface GlobalFilter {
@@ -34,13 +41,16 @@ interface GlobalFilter {
 export function DataTable<TData, TValue>({
 	columns,
 	data,
+	onRemoveMember,
+	onStatusChange,
+	onAddMember,
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[]
 	);
 	const [globalFilter, setGlobalFilter] = React.useState<any>([]);
-
+	const [isModalOpen, setIsModalOpen] = React.useState(false);
 	const table = useReactTable({
 		data,
 		columns,
@@ -57,12 +67,8 @@ export function DataTable<TData, TValue>({
 			globalFilter,
 		},
 		onGlobalFilterChange: setGlobalFilter,
+		meta: { onRemoveMember, onStatusChange },
 	});
-
-	const handleAddMember = () => {
-		// Implement your logic for adding a new member here
-		alert("Add new member functionality to be implemented!");
-	};
 
 	return (
 		<div>
@@ -81,7 +87,7 @@ export function DataTable<TData, TValue>({
 				<Button
 					variant="outline" // Adjust variant as needed
 					className="ml-4" // Margin left for spacing
-					onClick={handleAddMember}
+					onClick={() => setIsModalOpen(true)}
 				>
 					Add New Member
 				</Button>
@@ -154,6 +160,11 @@ export function DataTable<TData, TValue>({
 					Next
 				</Button>
 			</div>
+			<AddMemberModal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				onAddMember={onAddMember}
+			/>
 		</div>
 	);
 }
