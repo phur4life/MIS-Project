@@ -73,10 +73,12 @@ export const {
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.role = token.role;
-        session.user.profileImage = token.profileImage;
+        session.user = {
+          id: token.id,
+          email: token.email,
+          role: token.role,
+          profileImage: token.profileImage,
+        };
       }
       return session;
     },

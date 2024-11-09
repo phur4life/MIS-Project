@@ -48,7 +48,7 @@ export default function SigninWithPassword() {
       case "member":
         return "/member/profile";
       case "user":
-        return "/user/profile";
+        return "/user/applyForMembership";
       default:
         return "/";
     }

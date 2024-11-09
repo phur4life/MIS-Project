@@ -8,6 +8,7 @@ const Sidebar = () => {
     { name: "Member", link: "/admin/members", icon: "👤" },
     { name: "Activity", link: "/admin/activity", icon: "📊" },
     { name: "Services", link: "/admin/service", icon: "🛠" },
+    {name:"request", link:"/admin/adminReviewRequest"}
   ];
 
   const bottomMenuItems = [

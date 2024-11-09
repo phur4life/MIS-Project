@@ -1,15 +1,11 @@
+// models/Team.js
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 
-const TeamSchema = new Schema({
-    teamName: { 
-      type: String, 
-      required: true // Team name is required
-    },
-    members: [{ 
-      type: mongoose.Schema.Types.ObjectId, // Reference to User model
-      ref: 'User' 
-    }]
-  });
+const TeamSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  memberCount: { type: Number, default: 0 }, // Keeps track of members in the team
+});
 
-  module.exports = mongoose.model('Team', TeamSchema);
+// Check if the model already exists to avoid model overwrite error
+export const Team = mongoose.models.Team || mongoose.model("Team", TeamSchema);
