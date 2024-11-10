@@ -67,7 +67,7 @@ export default function MemberTable() {
 				value: data
 					.filter(
 						(member: { membership_request_status: string }) =>
-							member.membership_request_status !== "not_accepted"
+							member.membership_request_status == "active"
 					)
 					.length.toString(),
 
@@ -125,26 +125,18 @@ export default function MemberTable() {
 				body: JSON.stringify(updatedItem), // Send updated item with new status
 			});
 
-			if (!response.ok) {
-				throw new Error(`Failed to update status: ${response.status}`);
+			if (response.ok) {
+				const updatedMember = await response.json();
+
+				updatedMember.date_of_joining = new Date(updatedMember.date_of_joining);
+
+				const newMembers = data.map((member) =>
+					member.id === updatedItem.id ? updatedMember : member
+				);
+				setData(newMembers);
 			}
 
-			// Successfully updated, get the updated member data
-			const updatedMember = await response.json();
-
-			//Update the local state to reflect the updated member info
-			setData((prevData) =>
-				prevData.map((member) =>
-					(member.membership_request_status === "active" ||
-						member.membership_request_status === "pending") &&
-					member.membership_request_status ===
-						updatedMember.membership_request_status
-						? updatedItem
-						: member
-				)
-			);
-
-			console.log(data);
+			//console.log(data);
 		} catch (error) {
 			console.error("Error updating status:", error);
 		}

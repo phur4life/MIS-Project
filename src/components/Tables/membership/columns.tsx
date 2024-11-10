@@ -15,10 +15,10 @@ export type Membership = {
 	id: string;
 	name: string;
 	email: string;
-	phone: string;
+	phoneNumber: string;
 	role: string;
 	status: string;
-	student_no: string;
+	studentNumber: string;
 	date_of_joining: Date;
 	membership_request_status: "active" | "pending" | "not_accepted";
 	image: string;

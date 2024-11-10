@@ -4,6 +4,15 @@ import {
 } from "@/components/Tables/activities/columns";
 import { DataTable } from "@/components/Tables/activities/data_table";
 
+interface RequestType {
+	serviceId: string;
+	description: string;
+	phoneNumber: string;
+	blockNumber: string;
+	roomNumber: string;
+	inventoryId: string;
+}
+
 async function getData(): Promise<ActivitiesTable[]> {
 	// Fetch data from your API here.
 	return [
