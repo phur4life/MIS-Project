@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const userEmail = session.user.email;
     const user = await User.findOneAndUpdate(
       { email: userEmail },
-      { membershipStatus: "Pending" },
+      { membership_request_status: "pending" },
       { new: true }
     );
 

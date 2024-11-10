@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // Fetch pending membership requests
-    const pendingRequests = await User.find({ membershipStatus: "Pending" });
+    const pendingRequests = await User.find({ membership_request_status: "pending" });
     return NextResponse.json({ requests: pendingRequests }, { status: 200 });
   } catch (error) {
     console.error("Error fetching pending requests:", error);

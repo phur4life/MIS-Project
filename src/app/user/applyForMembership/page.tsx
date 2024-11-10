@@ -5,7 +5,7 @@
 // // Define types for the session and user
 // interface User {
 //   role: string;
-//   membershipStatus: string;
+//   membership_request_status: string;
 // }
 
 // interface Session {
@@ -15,14 +15,14 @@
 // const ApplyForMembership: React.FC = () => {
 //   const { data: session } = useSession() as { data: Session | null };
 //   const [status, setStatus] = useState<string | undefined>(
-//     session?.user?.membershipStatus
+//     session?.user?.membership_request_status
 //   );
 //   const [loading, setLoading] = useState<boolean>(false);
 
 //   // Effect to update status if session changes
 //   useEffect(() => {
 //     if (session) {
-//       setStatus(session.user.membershipStatus);
+//       setStatus(session.user.membership_request_status);
 //     }
 //   }, [session]);
 //   console.log(session,"this is my session")
@@ -36,7 +36,7 @@
 //         throw new Error("Failed to submit application");
 //       }
 
-//       setStatus("Pending");
+//       setStatus("pending");
 //       alert("Request submitted");
 //     } catch (error) {
 //       alert(
@@ -51,11 +51,11 @@
 //     return null; // Render nothing if the user is not a regular user
 //   }
 
-//   if (status === "Pending") {
+//   if (status === "pending") {
 //     return <p>Request under review</p>;
 //   }
 
-//   if (status !== "Approved") {
+//   if (status !== "active") {
 //     return (
 //       <button onClick={applyForMembership} disabled={loading}>
 //         {loading ? "Submitting..." : "Apply for Membership"}
@@ -77,7 +77,7 @@ import socket from "../../../../socket"; // Import the socket instance
 
 interface User {
   role: string;
-  membershipStatus: string;
+  membership_request_status: string;
 }
 
 interface Session {
@@ -87,14 +87,14 @@ interface Session {
 const ApplyForMembership: React.FC = () => {
   const { data: session } = useSession() as { data: Session | null };
   const [status, setStatus] = useState<string | undefined>(
-    session?.user?.membershipStatus
+    session?.user?.membership_request_status
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<string[]>([]); // Notifications
 
   useEffect(() => {
     if (session) {
-      setStatus(session.user.membershipStatus);
+      setStatus(session.user.membership_request_status);
     }
   }, [session]);
 
@@ -103,7 +103,7 @@ const ApplyForMembership: React.FC = () => {
     socket.on("applicationResponse", (response) => {
       const message = `Your application has been ${response.action}`;
       alert(message);
-      setStatus(response.action === "approved" ? "Approved" : "Pending");
+      setStatus(response.action === "approved" ? "active" : "pending");
       console.log(message); // Log response
       setNotifications((prev) => [...prev, message]);
     });
@@ -122,7 +122,7 @@ const ApplyForMembership: React.FC = () => {
         throw new Error("Failed to submit application");
       }
 
-      setStatus("Pending");
+      setStatus("pending");
       const notification = "Application submitted and pending approval.";
       alert(notification);
       console.log(notification);
@@ -148,9 +148,9 @@ const ApplyForMembership: React.FC = () => {
 
   return (
     <div>
-      {status === "Pending" ? (
+      {status === "pending" ? (
         <p>Request under review</p>
-      ) : status !== "Approved" ? (
+      ) : status !== "active" ? (
         <button onClick={applyForMembership} disabled={loading}>
           {loading ? "Submitting..." : "Apply for Membership"}
         </button>

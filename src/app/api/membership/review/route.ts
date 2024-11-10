@@ -19,7 +19,7 @@
 //     return NextResponse.json({ message: "Invalid action" }, { status: 400 });
 //   }
 
-//   const newStatus = action === "approve" ? "Approved" : "Rejected";
+//   const newStatus = action === "approve" ? "active" : "not_accepted";
 //   const newRole = action === "approve" ? "member" : "user";
 
 //   try {
@@ -97,7 +97,7 @@ export async function POST(req) {
     return NextResponse.json({ message: "Invalid action" }, { status: 400 });
   }
 
-  const newStatus = action === "approve" ? "Approved" : "Rejected";
+  const newStatus = action === "approve" ? "active" : "not_accepted";
   const newRole = action === "approve" ? "member" : "user";
 
   try {

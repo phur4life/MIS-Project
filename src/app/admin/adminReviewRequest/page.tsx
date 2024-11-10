@@ -46,7 +46,7 @@
 //         throw new Error("Failed to process request");
 //       }
 
-//       alert(`Request ${action === "approve" ? "approved" : "rejected"}`);
+//       alert(`Request ${action === "approve" ? "active" : "not_accepted"}`);
 //       setRequests((prevRequests) =>
 //         prevRequests.filter((request) => request._id !== userId)
 //       );
@@ -90,7 +90,6 @@
 // export default AdminReviewRequests;
 
 // components/AdminReviewRequests.tsx
-// components/AdminReviewRequests.tsx
 "use client";
 import React, { useEffect, useState } from "react";
 import socket from "../../../../socket"; // Import the socket instance
@@ -105,7 +104,6 @@ const AdminReviewRequests: React.FC = () => {
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [notifications, setNotifications] = useState<string[]>([]); // For tracking notifications
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -130,9 +128,6 @@ const AdminReviewRequests: React.FC = () => {
     // Listen for new applications
     socket.on("newApplication", (data) => {
       setRequests((prevRequests) => [...prevRequests, data]);
-      const notification = `New application received: ${data.name}`;
-      console.log(notification);
-      setNotifications((prev) => [...prev, notification]);
     });
 
     return () => {
@@ -152,16 +147,10 @@ const AdminReviewRequests: React.FC = () => {
         throw new Error("Failed to process request");
       }
 
-      alert(`Request ${action === "approve" ? "approved" : "rejected"}`);
+      alert(`Request ${action === "approve" ? "active" : "not_accepted"}`);
 
       // Emit response back to user
       socket.emit("respondToApplication", { userId, action });
-
-      const notification = `Request ${
-        action === "approve" ? "approved" : "rejected"
-      } for user ID ${userId}`;
-      console.log(notification);
-      setNotifications((prev) => [...prev, notification]);
 
       setRequests((prevRequests) =>
         prevRequests.filter((request) => request._id !== userId)
@@ -199,14 +188,6 @@ const AdminReviewRequests: React.FC = () => {
       ) : (
         <p>No pending requests</p>
       )}
-
-      {/* Display notifications */}
-      <div>
-        <h3>Notifications</h3>
-        {notifications.map((notification, index) => (
-          <p key={index}>{notification}</p>
-        ))}
-      </div>
     </div>
   );
 };

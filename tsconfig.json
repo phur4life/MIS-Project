@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/users/route.js", "src/lib/dbConnection.js", "src/app/api/register/route.js", "src/lib/findOrCreateUser.js", "src/lib/findOrCreateUser.js", "src/app/api/request-membership/route.ts", "src/app/membership-actions/reviewMembership.jsx", "src/app/membership-actions/applyForMembership.jsx", "src/app/user/applyForMembership/page.jsx", "src/app/user/adminReviewRequest/page.js", "src/config/socket.js", "server.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/users/route.js", "src/lib/dbConnection.js", "src/app/api/register/route.js", "src/lib/findOrCreateUser.js", "src/lib/findOrCreateUser.js", "src/app/api/request-membership/route.ts", "src/app/membership-actions/reviewMembership.jsx", "src/app/membership-actions/applyForMembership.jsx", "src/app/user/applyForMembership/page.jsx", "src/app/user/adminReviewRequest/page.js", "src/config/socket.js", "server.mjs"],
   "exclude": ["node_modules"]
 }
