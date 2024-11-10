@@ -46,7 +46,7 @@ const DropdownUser = () => {
           <Image
             width={112}
             height={112}
-            src={user?.image || "/images/logo/logo.png"} // Fallback image if user.image is null
+            src={user?.image || "/images/user/userprofile.jpg"} // Fallback image if user.image is null
             alt={user?.name || "User"}
             className="overflow-hidden rounded-full"
           />

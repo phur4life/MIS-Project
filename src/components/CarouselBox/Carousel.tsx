@@ -1,46 +1,81 @@
-import React from 'react';
-import { Box, Typography, Button, Chip, Card, CardContent } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Slider from 'react-slick';
-import Link from 'next/link'; 
-import { ServiceCardProps } from '../../../types/carousel';
+"use client";
+import React, { useState } from "react";
+import { Box, Typography, Button, Chip, Card, CardContent, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Slider from "react-slick";
+import Link from "next/link";
+import { ServiceCardProps } from "../../../types/carousel";
+import RequestForm from "../RequestBox/RequestForm";
 
+// ServiceCard component, modified to trigger a popup for the request form
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, isFree }) => {
+  const [openDialog, setOpenDialog] = useState(false);
 
-// ServiceCard component, modified to receive props
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, isFree }) => (
-  <Card
-    className="service-card"
-    sx={{
-      width: 300,
-      height: 400, // Set a fixed height for uniformity
-      borderRadius: 2,
-      boxShadow: 3,
-      mx: 1,
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column', // Stack content vertically
-    }}
-  >
-    <Box sx={{ bgcolor: 'orange', height: 100, position: 'relative' }}>
-      {isFree && (
-        <Chip label="Free" color="error" size="small" sx={{ position: 'absolute', top: 8, left: 8 }} />
-      )}
-    </Box>
-    <CardContent sx={{ textAlign: 'center', flex: 1 }}> {/* Use flex to fill space */}
-      <Typography variant="h6" color="textPrimary" gutterBottom>
-        {title}
-      </Typography>
-      <Typography variant="body2" color="textSecondary">
-        {description}
-      </Typography>
-    </CardContent>
-    <Box sx={{ textAlign: 'center', pb: 2 }}>
-      <Button variant="contained" color="warning" startIcon={<ShoppingCartIcon />} sx={{ borderRadius: 2, mt: 1 }}>
-        Get Service
-      </Button>
-    </Box>
-  </Card>
-);
+  // Open the dialog to show the request form
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  // Close the dialog
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  return (
+    <>
+      <Card
+        className="service-card"
+        sx={{
+          width: 300,
+          height: 400,
+          borderRadius: 2,
+          boxShadow: 3,
+          mx: 1,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Box sx={{ bgcolor: "orange", height: 100, position: "relative" }}>
+          {isFree && (
+            <Chip label="Free" color="error" size="small" sx={{ position: "absolute", top: 8, left: 8 }} />
+          )}
+        </Box>
+        <CardContent sx={{ textAlign: "center", flex: 1 }}>
+          <Typography variant="h6" color="textPrimary" gutterBottom>
+            {title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {description}
+          </Typography>
+        </CardContent>
+        <Box sx={{ textAlign: "center", pb: 2 }}>
+          <Button
+            variant="contained"
+            color="warning"
+            startIcon={<ShoppingCartIcon />}
+            sx={{ borderRadius: 2, mt: 1 }}
+            onClick={handleOpenDialog} // Open dialog on click
+          >
+            Get Service
+          </Button>
+        </Box>
+      </Card>
+
+      {/* Dialog for the Request Form */}
+      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+        <DialogTitle>Request Service</DialogTitle>
+        <DialogContent>
+          <RequestForm onSubmit={function (): void {
+            throw new Error("Function not implemented.");
+          } } onClose={function (): void {
+            throw new Error("Function not implemented.");
+          } } /> {/* Render the request form inside the dialog */}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const Carousel = () => {
   const settings = {
@@ -71,15 +106,18 @@ const Carousel = () => {
   };
 
   return (
-    <Box className="carousel-container" sx={{ bgcolor: '#212533', py: 4, px: 4 }}>
+    
+    <Box className="carousel-container" sx={{ bgcolor: "#212533", py: 4, px: 4 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 5, px: 5 }}>
         <Typography variant="h6" color="white">
           Services for you
         </Typography>
-        <Link href="/components/DetailBox/viewmore" passHref>
-          <Typography variant="body2" color="orange" sx={{ cursor: 'pointer', textDecoration: 'underline' }}>
+
+        {/* Link to View More Page */}
+        <Link href="" passHref>
+          <Button variant="text" color="warning" sx={{ cursor: "pointer", textDecoration: "underline" }}>
             View more
-          </Typography>
+          </Button>
         </Link>
       </Box>
       
