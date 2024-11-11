@@ -142,8 +142,8 @@ const MemberSidebar = () => {
                 <Items text={item.name} icon={item.icon} />
               </button>
             ) : (
-            <Link href={item.link}>
-              <Items text={item.name} icon={item.icon} />
+              <Link href={item.link}>
+                <Items text={item.name} icon={item.icon} />
               </Link>
             )}
           </li>

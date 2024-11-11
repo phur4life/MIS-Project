@@ -99,82 +99,82 @@ const ChartThree: React.FC = () => {
 
 	// Options for ApexCharts
 	const options = {
-    chart: {
-      fontFamily: "Satoshi, sans-serif",
-      type: "donut",
-    },
+		chart: {
+			fontFamily: "Satoshi, sans-serif",
+			type: "donut",
+		},
 		colors: colors,
 		labels: labels,
-    legend: {
-      show: false,
-      position: "bottom",
-    },
-    plotOptions: {
-      pie: {
-        donut: {
+		legend: {
+			show: false,
+			position: "bottom",
+		},
+		plotOptions: {
+			pie: {
+				donut: {
 					size: "75%",
-          background: "transparent",
-          labels: {
-            show: true,
-            name: {
-              show: true,
-              offsetY: -10,
-            },
-            value: {
-              show: true,
-              offsetY: 10,
+					background: "transparent",
+					labels: {
+						show: true,
+						name: {
+							show: true,
+							offsetY: -10,
+						},
+						value: {
+							show: true,
+							offsetY: 10,
 							fontSize: "22px",
 							fontWeight: "bold",
 							color: "#1D1D1D",
 							formatter: () => totalCount, // Display totalCount dynamically
-            },
-            total: {
+						},
+						total: {
 							show: false,
-              label: "Total Members",
-              fontSize: "14px",
-              fontWeight: "500",
+							label: "Total Members",
+							fontSize: "14px",
+							fontWeight: "500",
 							color: "#858585",
 							formatter: () => (totalCount == 0 ? members.length : totalCount),
-            },
-          },
-        },
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    responsive: [
-      {
-        breakpoint: 2600,
-        options: {
-          chart: {
-            width: 300,
-          },
-        },
-      },
-      {
-        breakpoint: 640,
-        options: {
-          chart: {
-            width: 200,
-          },
-        },
-      },
-    ],
-  };
+						},
+					},
+				},
+			},
+		},
+		dataLabels: {
+			enabled: false,
+		},
+		responsive: [
+			{
+				breakpoint: 2600,
+				options: {
+					chart: {
+						width: 300,
+					},
+				},
+			},
+			{
+				breakpoint: 640,
+				options: {
+					chart: {
+						width: 200,
+					},
+				},
+			},
+		],
+	};
 
 	const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
 		setSelectedOption(event.target.value as string);
 	};
 
-  return (
-    <div className="col-span-12 rounded-[10px] bg-white px-7.5 pb-7 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-5">
-      <div className="mb-9 justify-between gap-4 sm:flex">
-        <div>
+	return (
+		<div className="col-span-12 rounded-[10px] bg-white px-7.5 pb-7 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card xl:col-span-5">
+			<div className="mb-9 justify-between gap-4 sm:flex">
+				<div>
 					<h4 className="text-body-2xlg font-bold text-dark ">
-            Member Distribution
-          </h4>
-        </div>
+						Member Distribution
+					</h4>
+				</div>
 				{/* <div>
 					<DefaultSelectOption
 						options={["Member", "User"]}
@@ -182,34 +182,34 @@ const ChartThree: React.FC = () => {
 						onChange={handleSelectChange}
 					/>
 				</div> */}
-      </div>
+			</div>
 
-      <div className="mb-8">
-        <div className="mx-auto flex justify-center">
-          <ReactApexChart options={options} series={series} type="donut" />
-        </div>
-      </div>
+			<div className="mb-8">
+				<div className="mx-auto flex justify-center">
+					<ReactApexChart options={options} series={series} type="donut" />
+				</div>
+			</div>
 
-      <div className="mx-auto w-full max-w-[350px]">
-        <div className="-mx-7.5 flex flex-wrap items-center justify-center gap-y-2.5">
+			<div className="mx-auto w-full max-w-[350px]">
+				<div className="-mx-7.5 flex flex-wrap items-center justify-center gap-y-2.5">
 					{selectedData.map((item, index) => (
 						<div key={index} className="w-full px-7.5 sm:w-1/2">
-            <div className="flex w-full items-center">
+							<div className="flex w-full items-center">
 								<span
 									className="mr-2 block h-3 w-full max-w-3 rounded-full"
 									style={{ backgroundColor: item.color }}
 								></span>
-              <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
+								<p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
 									<span>{item.label}</span>
 									<span>{item.percentage}%</span>
-              </p>
-            </div>
-          </div>
+								</p>
+							</div>
+						</div>
 					))}
-        </div>
-      </div>
-    </div>
-  );
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default ChartThree;
