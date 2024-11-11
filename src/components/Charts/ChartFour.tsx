@@ -1,10 +1,45 @@
 import { ApexOptions } from "apexcharts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { Items } from "../sidebar/Items";
 
 const RequestsChart: React.FC = () => {
-  const series = [12, 9, 6, 3, 2]; // Data for each hostel block
-  const categories = ["HB", "HA", "RKA", "RKB", "HE"]; // Hostel Block Labels
+	//const series = [12, 9, 6, 3, 2, 5, 7]; // Data for each hostel block
+	const categories = ["HB", "HA", "RK", "HC", "HD", "NK", "HE"]; // Hostel Block Labels
+	const [users, setUsers] = useState([]);
+
+	useEffect(() => {
+		const fetchInventory = async () => {
+			try {
+				const response = await fetch("/api/users", {
+					method: "GET",
+				});
+				if (response.ok) {
+					const data = await response.json();
+					setUsers(data);
+				} else {
+					console.log("Inventory Fetch Failed");
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		fetchInventory();
+	}, []);
+
+	const requests = users.map((item) => item.requests);
+	const categorizedRequests = requests.map((request, index) => ({
+		category: categories[index], // Use index to get the category
+		requestCount: request.length, // Get the number of requests in that category
+	}));
+
+	const series = categorizedRequests.map((request) => request.requestCount);
+
+	//console.log(series);
+
+	//console.log(categorizedRequests);
+	// console.log(requests);
+	// console.log(users);
 
   const options: ApexOptions = {
     chart: {
@@ -54,7 +89,7 @@ const RequestsChart: React.FC = () => {
       },
       labels: {
         offsetX: 10, // Adjust space between y-axis values and labels
-        offsetY: 5,  // Increase vertical spacing between y-axis values
+				offsetY: 5, // Increase vertical spacing between y-axis values
       },
     },
     title: {

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import ClickOutside from "@/components/ClickOutside";
 
@@ -15,12 +15,16 @@ const DefaultSelectOption = ({ options }: any) => {
     <ClickOutside onClick={() => setIsOpen(false)}>
       <div className="relative z-20 inline-flex cursor-pointer appearance-none rounded-[5px] border border-stroke bg-white text-sm font-medium outline-none dark:border-dark-3 dark:bg-dark-2">
         <div
-          className={`py-[5px] pl-[9px] pr-[35px] text-sm font-medium text-dark dark:text-white ${isOpen ? "open" : ""}`}
+					className={`py-[5px] pl-[9px] pr-[35px] text-sm font-medium text-dark dark:text-white ${
+						isOpen ? "open" : ""
+					}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {selectedOption}
           <span
-            className={`absolute right-2.5 top-1/2 z-10 -translate-y-1/2 ${isOpen && "rotate-180"}`}
+						className={`absolute right-2.5 top-1/2 z-10 -translate-y-1/2 ${
+							isOpen && "rotate-180"
+						}`}
           >
             <svg
               className="fill-current"
@@ -46,7 +50,9 @@ const DefaultSelectOption = ({ options }: any) => {
                 <li
                   key={index}
                   onClick={() => handleOptionSelect(option)}
-                  className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-left font-medium hover:text-dark dark:hover:text-white ${selectedOption === option ? "selected" : ""}`}
+									className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-1.5 text-left font-medium hover:text-dark dark:hover:text-white ${
+										selectedOption === option ? "selected" : ""
+									}`}
                 >
                   {option}
                 </li>

@@ -1,11 +1,43 @@
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import { useEffect, useState } from "react";
 
 const InventoryChart = () => {
-  // Define options with the explicit ApexOptions type
+	const [inventories, setInventories] = useState([]);
+	const [categories, setCategories] = useState([]);
+	const [itemQuantity, setItemQuantity] = useState([]);
+
+	useEffect(() => {
+		const fetchInventory = async () => {
+			try {
+				const response = await fetch("/api/inventory", {
+					method: "GET",
+				});
+				if (response.ok) {
+					const data = await response.json();
+					setInventories(data);
+				} else {
+					console.log("Inventory Fetch Failed");
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		fetchInventory();
+	}, []);
+
+	useEffect(() => {
+		if (inventories.length > 0) {
+			setCategories(inventories.map((item) => item.itemName)); // Update categories with itemName
+			setItemQuantity(inventories.map((item) => item.quantity));
+		}
+	}, [inventories]);
+
+	// console.log(categories, itemQuantity);
+
   const options: ApexOptions = {
     chart: {
-      type: 'bar', // Explicitly set to "bar" and recognized as such by ApexOptions
+			type: "bar", // Explicitly set to "bar" and recognized as such by ApexOptions
       toolbar: {
         show: false,
       },
@@ -13,33 +45,32 @@ const InventoryChart = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '55%',
+				columnWidth: "55%",
       },
     },
     dataLabels: {
       enabled: false,
     },
     xaxis: {
-      categories: ['Light Bulbs', 'Wires', 'Switches', 'Screws', 'Fuses'],
+			categories: categories,
       labels: {
         style: {
-          colors: ['#6B7280'],
+					colors: ["#6B7280"],
         },
       },
     },
     yaxis: {
       title: {
-        text: 'Quantity',
+				text: "Quantity",
         style: {
-          fontSize: '15px',
+					fontSize: "15px",
         },
-
       },
     },
     fill: {
       opacity: 1,
     },
-    colors: ['#3B82F6'],
+		colors: ["#3B82F6"],
     tooltip: {
       y: {
         formatter: (val) => `${val} units`,
@@ -49,8 +80,8 @@ const InventoryChart = () => {
 
   const series = [
     {
-      name: 'Quantity',
-      data: [45, 60, 35, 70, 40],
+			name: "Quantity",
+			data: itemQuantity,
     },
   ];
 

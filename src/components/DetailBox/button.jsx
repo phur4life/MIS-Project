@@ -4,7 +4,7 @@ import { Button, Box } from "@mui/material";
 const MemberRegistrationButton = ({click}) => {
   return (
     <Box display="flex" justifyContent="flex-end" alignItems="flex-end" mt={2}>
-      <Button onClick={click} variant="contained">Member Registration</Button>
+      <Button className="bg-orange-600" onClick={click} variant="contained">Member Registration</Button>
     </Box>
   );
 };
