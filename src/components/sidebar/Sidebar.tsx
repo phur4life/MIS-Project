@@ -8,7 +8,6 @@ const Sidebar = () => {
     { name: "Member", link: "/admin/members", icon: "👤" },
     { name: "Activity", link: "/admin/activity", icon: "📊" },
     { name: "Services", link: "/admin/service", icon: "🛠" },
-    {name:"request", link:"/admin/adminReviewRequest"}
   ];
 
   const bottomMenuItems = [
@@ -20,15 +19,19 @@ const Sidebar = () => {
     <div className="h-auto w-53  text-secondary fixed flex flex-col justify-between text-sm ">
       <ul className="mt-5">
         {menuItems.map((item) => (
-          <li key={item.name} className="p-4 hover:bg-primary hover:rounded-lg ">
-            {item.name ==="Logout"?(
-              <button onClick={()=>doLogout}>
-                <Items text={item.name} icon={item.icon}/>
+          <li
+            key={item.name}
+            className="p-4 hover:bg-primary hover:rounded-lg "
+          >
+            {item.name === "Logout" ? (
+              <button onClick={() => doLogout}>
+                <Items text={item.name} icon={item.icon} />
               </button>
-            ):
-            <Link href={item.link}>
-              <Items text={item.name} icon={item.icon} />
-            </Link>}
+            ) : (
+              <Link href={item.link}>
+                <Items text={item.name} icon={item.icon} />
+              </Link>
+            )}
           </li>
         ))}
       </ul>

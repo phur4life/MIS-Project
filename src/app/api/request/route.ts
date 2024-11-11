@@ -1,69 +1,8 @@
-// import { auth } from "@/auth"; // Import the session hook for next-auth
-// import { User } from "@/models/User";
-// import dbConnect from "@/lib/dbConnection";
-
-// export default async function handler(req, res) {
-//   await dbConnect();
-
-//   if (req.method === "POST") {
-//     const {
-//       serviceId,
-//       description,
-//       phoneNumber,
-//       blockNumber,
-//       roomNumber,
-//       teamId, // Capturing teamId from request body
-//     } = req.body;
-
-//     // Get session to retrieve the userId
-//     const session = await auth();
-
-//     if (!session || !session.user) {
-//       return res
-//         .status(401)
-//         .json({ error: "Unauthorized: User not logged in" });
-//     }
-
-//     const userId = session.user.id; // Assuming user ID is stored in session
-
-//     try {
-//       // Find the user by userId (from session)
-//       const user = await User.findById(userId);
-//       if (!user) return res.status(404).json({ error: "User not found" });
-
-//       // Create a new request and associate it with the correct team
-//       const newRequest = {
-//         serviceId,
-//         description,
-//         phoneNumber,
-//         blockNumber,
-//         roomNumber,
-//         status: "pending", // Set initial status as "pending"
-//         teamId, // The teamId will directly be passed from the client-side
-//       };
-
-//       // Push the new request to the user's requests array
-//       user.requests.push(newRequest);
-
-//       // Save the user with the new request
-//       await user.save();
-
-//       res.status(201).json({
-//         success: true,
-//         message: "Request submitted successfully.",
-//       });
-//     } catch (error) {
-//       res.status(500).json({ error: error.message });
-//     }
-//   } else {
-//     res.status(405).json({ message: "Method Not Allowed" });
-//   }
-// }
-
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { User } from "@/models/User";
 import dbConnect from "@/lib/dbConnection";
+import { getAssignedTeamForDate } from "@/lib/teamAssignment"; // Correct path to the helper
 
 export async function POST(req) {
   try {
@@ -78,7 +17,7 @@ export async function POST(req) {
       blockNumber,
       roomNumber,
       inventoryId,
-      teamId,
+      selectedDate, // This will be 'today' or 'tomorrow'
     } = await req.json();
 
     // Get the session to retrieve the userId
@@ -92,7 +31,7 @@ export async function POST(req) {
       );
     }
 
-    const userId = session.user.id; // Assuming the user ID is stored in session
+    const userId = session.user.id; // Get userId from the session
 
     // Find the user by userId (from session)
     const user = await User.findById(userId);
@@ -101,7 +40,25 @@ export async function POST(req) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Create a new request and associate it with the correct team
+    // Get today's date
+    const today = new Date(); // Get today's date
+
+    // Calculate tomorrow's date
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1); // Set tomorrow's date
+
+    // Select the correct date based on the selected date from the frontend
+    const requestDate =
+      selectedDate === "today"
+        ? today
+        : selectedDate === "tomorrow"
+        ? tomorrow
+        : today;
+
+    // Get the team for today or tomorrow, based on the selected date
+    const teamForSelectedDate = await getAssignedTeamForDate(requestDate);
+
+    // Create a new request object and associate it with the correct team and date
     const newRequest = {
       serviceId,
       description,
@@ -110,7 +67,8 @@ export async function POST(req) {
       roomNumber,
       inventoryId,
       status: "pending", // Set initial status as "pending"
-      teamId,
+      teamId: teamForSelectedDate._id, // Dynamically assigned team
+      requestDate, // Store the selected date (today or tomorrow)
     };
 
     // Push the new request to the user's requests array

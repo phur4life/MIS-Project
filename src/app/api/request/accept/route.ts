@@ -3,7 +3,7 @@ import { auth } from "@/auth"; // Assuming you're using next-auth
 import { User } from "@/models/User";
 import dbConnect from "@/lib/dbConnection";
 
-// Define the GET handler to fetch team requests
+// GET handler to fetch team requests
 export async function GET(req) {
   await dbConnect();
 
@@ -26,6 +26,7 @@ export async function GET(req) {
       );
     }
 
+    // Fetch all requests associated with the user's team
     const teamRequests = await User.find({ teamId: user.teamId }).select(
       "requests"
     );
@@ -38,7 +39,7 @@ export async function GET(req) {
   }
 }
 
-// Define the PATCH handler to update the status of a request
+// PATCH handler to update the status of a request
 export async function PATCH(req) {
   await dbConnect();
 
@@ -73,7 +74,7 @@ export async function PATCH(req) {
       );
     }
 
-    // Find the user who has the request and update the status
+    // Update the request status within the user's team
     const updatedUser = await User.findOneAndUpdate(
       {
         teamId: user.teamId,
@@ -92,9 +93,15 @@ export async function PATCH(req) {
       );
     }
 
+    // Return the updated request for immediate frontend feedback
+    const updatedRequest = updatedUser.requests.find(
+      (req) => req._id.toString() === requestId
+    );
+
     return NextResponse.json({
       success: true,
-      message: "Request status updated successfully.",
+      message: `Request status updated to ${newStatus} successfully.`,
+      updatedRequest, // Return the updated request
     });
   } catch (error) {
     console.error("Error updating request status:", error);

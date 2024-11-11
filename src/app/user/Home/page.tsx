@@ -37,7 +37,7 @@ const Page: React.FC = () => {
 			<div className="text-center text-gray-700">
 				<AvailibilityDetail />
 			</div>
-			{/* <FooterComponent /> */}
+			<FooterComponent />
 		</div>
 	);
 };
