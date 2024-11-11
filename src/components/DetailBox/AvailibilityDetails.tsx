@@ -1,4 +1,5 @@
 import React from 'react';
+import MemberRegistrationButton from './button'
 import { Box, Typography, Card, CardContent, CardMedia, Grid } from '@mui/material';
 
 const MaintenanceClubComponent = () => {
@@ -42,6 +43,7 @@ const MaintenanceClubComponent = () => {
           <Typography variant="body2" color="textSecondary">
             we are a team comprising of electrical students functioning as a club that offer services to students and college by dealing with the problems related to electrical fittings, newer installations and maintenance of the older fittings
           </Typography>
+          <div className='flex justify-end items-end mt-5 m-3'><MemberRegistrationButton/></div>
         </CardContent>
         
         {/* Image Section */}
@@ -53,7 +55,7 @@ const MaintenanceClubComponent = () => {
             borderRadius: '4px', 
             marginRight: 2 
           }}
-          image = "/image/service/electrical.jpg" // Replace with the actual image path
+          image = "images/logo/logo.png" // Replace with the actual image path
           alt="Maintenance Club Group"
         />
       </Card>

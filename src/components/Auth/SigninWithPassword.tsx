@@ -41,21 +41,21 @@ export default function SigninWithPassword() {
 		}
 	}
 
-	function getRedirectUrl(role) {
-		switch (role) {
-			case "admin":
-				return "/admin/dashboard";
-			case "member":
-				return "/member/acceptRequest";
-			case "user":
-				return "/user/requestForm";
-			default:
-				return "/";
-		}
-	}
-	// const handleFormSubmit = async (event) => {
-	//   event.preventDefault();
-	//   const formData = new FormData(event.target);
+  function getRedirectUrl(role) {
+    switch (role) {
+      case "admin":
+        return "/admin/dashboard";
+      case "member":
+        return "/member/dashboard";
+      case "user":
+        return "/user/Home";
+      default:
+        return "/";
+    }
+  }
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.target);
 
 	//   try {
 	//     const response = await doCredentialLogin(formData); // Call server action
