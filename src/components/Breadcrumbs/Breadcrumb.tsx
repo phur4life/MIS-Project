@@ -1,28 +1,34 @@
-import Link from "next/link";
+"use client";
+import React from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Carousel from "@/components/CarouselBox/Carousel";
+import AvailibilityDetail from "@/components/DetailBox/AvailibilityDetails";
+import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import UserHeader from "@/components/Header/UserHeader";
+import FooterComponent from "@/components/Footer/footercomponent";
 
-interface BreadcrumbProps {
-  pageName: string;
-}
+const Page: React.FC = () => {
+	return (
+		<div className="bg-background">
+			<UserHeader />
 
-const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
-  return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <h2 className="text-[26px] font-bold leading-[30px] text-dark dark:text-white">
-        {pageName}
-      </h2>
+			{/* Breadcrumb */}
+			{/* <Breadcrumb pageName="My Cart" /> */}
 
-      <nav>
-        <ol className="flex items-center gap-2">
-          <li>
-            <Link className="font-medium" href="/">
-              Dashboard /
-            </Link>
-          </li>
-          <li className="font-medium text-primary">{pageName}</li>
-        </ol>
-      </nav>
-    </div>
-  );
+			{/* Services Section */}
+			<div className="container w-full ">
+				<Carousel />
+			</div>
+
+			{/* Availability Details Section */}
+			<div className="text-center text-gray-700">
+				<AvailibilityDetail />
+			</div>
+
+			<FooterComponent />
+		</div>
+	);
 };
 
-export default Breadcrumb;
+export default Page;

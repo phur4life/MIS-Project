@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: "spectral";
+	src: url("/fonts/spectral/Spectral-Medium.ttf") format("ttf");
+}

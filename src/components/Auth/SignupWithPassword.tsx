@@ -37,10 +37,7 @@ export default function SignupWithPassword() {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="mb-4">
-				<label
-					htmlFor="email"
-					className="mb-2.5 block font-medium text-dark dark:text-white"
-				>
+				<label htmlFor="email" className="mb-2.5 block font-medium text-dark ">
 					Username
 				</label>
 				<div className="relative">
@@ -54,10 +51,7 @@ export default function SignupWithPassword() {
 				</div>
 			</div>
 			<div className="mb-4">
-				<label
-					htmlFor="name"
-					className="mb-2.5 block font-medium text-dark dark:text-white"
-				>
+				<label htmlFor="name" className="mb-2.5 block font-medium text-dark ">
 					Email
 				</label>
 				<div className="relative">
@@ -65,9 +59,9 @@ export default function SignupWithPassword() {
 						type="email" // Set the input type to text
 						name="email"
 						placeholder="Enter your email"
-						className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+						className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary"
 					/>
-					<span className="absolute right-4.5 top-1/2 -translate-y-1/2">
+					{/* <span className="absolute right-4.5 top-1/2 -translate-y-1/2">
 						<svg
 							className="fill-current"
 							width="22"
@@ -83,14 +77,14 @@ export default function SignupWithPassword() {
 								fill=""
 							/>
 						</svg>
-					</span>
+					</span> */}
 				</div>
 			</div>
 
 			<div className="mb-5">
 				<label
 					htmlFor="password"
-					className="mb-2.5 block font-medium text-dark dark:text-white"
+					className="mb-2.5 block font-medium text-dark"
 				>
 					Password
 				</label>
@@ -104,7 +98,7 @@ export default function SignupWithPassword() {
 						className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary"
 					/>
 
-					<span className="absolute right-4.5 top-1/2 -translate-y-1/2">
+					{/* <span className="absolute right-4.5 top-1/2 -translate-y-1/2">
 						<svg
 							className="fill-current"
 							width="22"
@@ -126,7 +120,7 @@ export default function SignupWithPassword() {
 								fill=""
 							/>
 						</svg>
-					</span>
+					</span> */}
 				</div>
 			</div>
 			<div className="mb-4.5">
