@@ -46,9 +46,9 @@ export default function SigninWithPassword() {
       case "admin":
         return "/admin/dashboard";
       case "member":
-        return "/member/acceptRequest";
+        return "/member/dashboard";
       case "user":
-        return "/user/requestForm";
+        return "/user/Home";
       default:
         return "/";
     }

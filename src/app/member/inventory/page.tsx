@@ -36,13 +36,12 @@ const Inventory = () => {
     status: "Available",
     image: "",
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
-
   const fetchInventory = async () => {
     try {
-		
       const response = await fetch("/api/inventory");
       if (response.ok) {
         const data = await response.json();
@@ -187,9 +186,9 @@ const Inventory = () => {
               }
             </h1>
           </div>
-          <Button className="text-white" onClick={() => setIsModalOpen(true)}>
+          {/* <Button className="text-white" onClick={() => setIsModalOpen(true)}>
             Add Item
-          </Button>
+          </Button> */}
         </div>
         <Cart
           productData={products}

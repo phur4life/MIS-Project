@@ -123,7 +123,7 @@ const MaintenanceClubComponent = () => {
             students and the college, handling electrical fittings, new
             installations, and maintenance of older fittings.
           </Typography>
-          <div className="flex justify-end items-end mt-5 m-3">
+          <div className="flex justify-start items-end mt-5 m-3">
             <MemberRegistrationButton click={handleOpenModal} />
           </div>
         </CardContent>
@@ -136,7 +136,7 @@ const MaintenanceClubComponent = () => {
             borderRadius: "4px",
             marginRight: 2,
           }}
-          image="images/logo/logo.png"
+          image="/images/service/electrical.jpg"
           alt="Maintenance Club Group"
         />
       </Card>
