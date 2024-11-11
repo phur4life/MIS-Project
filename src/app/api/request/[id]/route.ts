@@ -4,7 +4,7 @@ import { User } from "@/models/User";
 import dbConnect from "@/lib/dbConnection";
 import { getAssignedTeamForDate } from "@/lib/teamAssignment"; // Correct path to the helper
 
-export async function POST(req) {
+export async function POST(req, params: { id: string }) {
 	try {
 		// Connect to the database
 		await dbConnect();
@@ -31,13 +31,11 @@ export async function POST(req) {
 			);
 		}
 
-		const userEmail = session.user.email; // Get userId from the session
-		console.log(userEmail);
+		const userId = session.user.id; // Get userId from the session
+		console.log(userId);
 
 		// Find the user by userId (from session)
-		const user = await User.findOne({
-			email: new RegExp(`^${userEmail}$`, "i"), // Case-insensitive regex
-		});
+		const user = await User.findById(userId);
 		if (!user) {
 			console.error("User not found");
 			return NextResponse.json({ error: "User not found" }, { status: 404 });
