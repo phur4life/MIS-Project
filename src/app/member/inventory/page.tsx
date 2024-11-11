@@ -27,6 +27,18 @@ interface productData {
 // }
 
 const Inventory = () => {
+  const [inventory, setInventory] = useState([]);
+  const [products, setProducts] = useState<productData[]>([]);
+  const [newItem, setNewItem] = useState({
+    itemName: "",
+    quantity: 1,
+    description: "",
+    status: "Available",
+    image: "",
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 	const [inventory, setInventory] = useState([]);
 	const [products, setProducts] = useState<productData[]>([]);
 	const [newItem, setNewItem] = useState({
@@ -39,6 +51,21 @@ const Inventory = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [imageUrl, setImageUrl] = useState("");
 
+  const fetchInventory = async () => {
+    try {
+      const response = await fetch("/api/inventory");
+      if (response.ok) {
+        const data = await response.json();
+        getProductData(data);
+        setInventory(data);
+        // console.log(data);
+      } else {
+        console.log("error fetching inventory");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 	const fetchInventory = async () => {
 		try {
 			const response = await fetch("/api/inventory");
@@ -168,6 +195,24 @@ const Inventory = () => {
 		}
 	};
 
+  return (
+    <Layout>
+      <div className="flex flex-wrap">
+        {/* <h1>Inventory</h1> */}
+        <div className="flex px-4 my-4 justify-between items-center gap-4 w-full">
+          <div className="flex gap-4">
+            <h1 className="text-lg font-semibold text-gray-700">
+              Inventories: {products.length}
+            </h1>
+            <h1 className="text-lg font-semibold text-gray-700">
+              Available Items:{" "}
+              {
+                products.filter((product) => product.status === "Available")
+                  .length
+              }
+            </h1>
+          </div>
+          {/* <Button className="text-white" onClick={() => setIsModalOpen(true)}>
 	return (
 		<Layout>
 			<div className="flex flex-wrap">
@@ -187,6 +232,15 @@ const Inventory = () => {
 					</div>
 					{/* <Button className="text-white" onClick={() => setIsModalOpen(true)}>
             Add Item
+          </Button> */}
+        </div>
+        <Cart
+          productData={products}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onSaveEdit={handleSaveEdit}
+        />
+      </div>
           </Button> */}
 				</div>
 				<Cart
