@@ -32,6 +32,7 @@ export async function GET(req) {
     );
     const allRequests = teamRequests.flatMap((u) => u.requests);
 
+    
     return NextResponse.json(allRequests);
   } catch (error) {
     console.error("Error fetching team requests:", error);
@@ -108,3 +109,48 @@ export async function PATCH(req) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+// import { NextResponse } from "next/server";
+// import { auth } from "@/auth"; // Assuming you're using next-auth
+// import { User } from "@/models/User";
+// import dbConnect from "@/lib/dbConnection";
+
+// // GET handler to fetch team requests
+// export async function GET(req) {
+//   await dbConnect();
+
+//   const session = await auth();
+//   if (!session || !session.user) {
+//     return NextResponse.json(
+//       { error: "Unauthorized: User not logged in" },
+//       { status: 401 }
+//     );
+//   }
+
+//   const userId = session.user.id;
+
+//   try {
+//     const user = await User.findById(userId).select("teamId");
+//     if (!user || !user.teamId) {
+//       return NextResponse.json(
+//         { error: "User not associated with a team" },
+//         { status: 404 }
+//       );
+//     }
+
+//     // Fetch all requests associated with the user's team and populate username
+//     const teamRequests = await User.find({ teamId: user.teamId }).select("requests username");
+    
+//     // Flatten all requests and include the username of the user who sent the request
+//     const allRequests = teamRequests.flatMap((u) =>
+//       u.requests.map(request => ({
+//         ...request.toObject(),
+//         username: u.username // Assuming 'username' is a field in the User model
+//       }))
+//     );
+
+//     return NextResponse.json(allRequests);
+//   } catch (error) {
+//     console.error("Error fetching team requests:", error);
+//     return NextResponse.json({ error: error.message }, { status: 500 });
+//   }
+// }

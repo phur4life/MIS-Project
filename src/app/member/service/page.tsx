@@ -96,12 +96,6 @@ const Service = () => {
 		<Layout>
 			<div>
 				<div className="flex justify-end mb-3">
-					<button
-						className="bg-primary p-2 border rounded-md text-white"
-						onClick={() => setIsModalOpen(true)}
-					>
-						Add Item
-					</button>
 				</div>
 				<div>
 					<Cart
