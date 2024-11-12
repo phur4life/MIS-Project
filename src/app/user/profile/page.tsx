@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 "use client";
 import React from 'react';
 import 'slick-carousel/slick/slick.css';
@@ -17,5 +16,3 @@ const Page: React.FC = () => {
 }
 
 export default page
-=======
->>>>>>> Stashed changes
